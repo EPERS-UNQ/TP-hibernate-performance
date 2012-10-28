@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="unq.tpi.persistencia.performanceEj.model.Salary"
+		table="salaries">
+		
+		<composite-id>
+			<key-many-to-one name="employee" column="emp_no">
+			</key-many-to-one>
+			<key-property name="from" column="from_date"></key-property>
+		</composite-id>
+
+		<property name="to">
+			<column name="to_date" />
+		</property>
+
+		<property name="amount">
+			<column name="salary" sql-type="int"/>
+		</property>
+
+	</class>
+</hibernate-mapping>

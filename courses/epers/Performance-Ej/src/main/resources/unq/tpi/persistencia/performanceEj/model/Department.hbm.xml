@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="unq.tpi.persistencia.performanceEj.model.Department"
+		table="departments">
+		<id name="number">
+			<column name="dept_no" sql-type="char(4)" />
+			<generator class="identity" />
+		</id>
+
+		<property name="name">
+			<column name="dept_name" />
+		</property>
+
+		<set name="employees" table="dept_emp" where="to_date = '9999-01-01'">
+			<key>
+				<column name="dept_no" sql-type="char(4)"></column>
+			</key>
+			<many-to-many column="emp_no"
+				class="unq.tpi.persistencia.performanceEj.model.Employee" />
+		</set>
+
+		<set name="historicEmployees" table="dept_emp" where="to_date != '9999-01-01'">
+			<key>
+				<column name="dept_no" sql-type="char(4)"></column>
+			</key>
+
+			<many-to-many column="emp_no"
+				class="unq.tpi.persistencia.performanceEj.model.Employee" />
+		</set>
+
+		<bag name="managers" table="dept_manager" order-by="from_date">
+			<key>
+				<column name="dept_no" sql-type="char(4)"></column>
+			</key>
+			<many-to-many column="emp_no"
+				class="unq.tpi.persistencia.performanceEj.model.Employee" />
+		</bag>
+
+	</class>
+</hibernate-mapping>

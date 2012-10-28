@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="unq.tpi.persistencia.performanceEj.model.Employee"
+		table="employees">
+		<id name="id" type="java.lang.Integer">
+			<column name="emp_no" />
+			<generator class="identity" />
+		</id>
+
+		<property name="birthDate">
+			<column name="birth_date" />
+		</property>
+
+		<property name="firstName">
+			<column name="first_name" />
+		</property>
+
+		<property name="lastName">
+			<column name="last_name" />
+		</property>
+
+		<property name="gender">
+			<column name="gender" sql-type="enum" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">unq.tpi.persistencia.performanceEj.model.Gender</param>
+				<param name="type">12</param>
+			</type>
+		</property>
+
+
+		<property name="hireDate">
+			<column name="hire_date" />
+		</property>
+
+		<set name="departments" table="dept_emp" where="to_date = '9999-01-01'">
+			<key>
+				<column name="emp_no"></column>
+			</key>
+			<many-to-many class="unq.tpi.persistencia.performanceEj.model.Department">
+				<column name="dept_no" sql-type="char(4)"></column>
+			</many-to-many>
+		</set>
+
+		<bag name="historicDepartments" table="dept_emp" where="to_date != '9999-01-01'" order-by="from_date">
+			<key>
+				<column name="emp_no"></column>
+			</key>
+			<many-to-many class="unq.tpi.persistencia.performanceEj.model.Department">
+				<column name="dept_no" sql-type="char(4)"></column>
+			</many-to-many>
+		</bag>
+
+		<set name="titles" table="titles" where="to_date = '9999-01-01'">
+			<key>
+				<column name="emp_no"></column>
+			</key>
+			<element column="title" type="java.lang.String"></element>
+		</set>
+
+
+		<bag name="historicTitles" table="titles" where="to_date != '9999-01-01'" order-by="from_date">
+			<key>
+				<column name="emp_no"></column>
+			</key>
+			<element column="title" type="java.lang.String"></element>
+		</bag>
+		
+		<bag name="salaries" order-by="from_date">
+			<key column="emp_no"></key>
+			<one-to-many class="unq.tpi.persistencia.performanceEj.model.Salary"/>
+		</bag>
+
+	</class>
+</hibernate-mapping>
