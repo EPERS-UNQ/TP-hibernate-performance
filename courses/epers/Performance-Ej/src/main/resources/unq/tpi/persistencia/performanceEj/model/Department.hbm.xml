@@ -14,7 +14,7 @@
 			<column name="dept_name" />
 		</property>
 
-		<set name="employees" table="dept_emp" where="to_date = '9999-01-01'">
+		<set name="employees" table="dept_emp" where="to_date = '9999-01-01'" lazy="false" fetch="join">
 			<key>
 				<column name="dept_no" sql-type="char(4)"></column>
 			</key>

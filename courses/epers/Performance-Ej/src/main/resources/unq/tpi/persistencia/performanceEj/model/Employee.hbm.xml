@@ -53,7 +53,7 @@
 			</many-to-many>
 		</bag>
 
-		<set name="titles" table="titles" where="to_date = '9999-01-01'">
+		<set name="titles" table="titles" where="to_date = '9999-01-01'" fetch="join" lazy="false">
 			<key>
 				<column name="emp_no"></column>
 			</key>
@@ -68,7 +68,7 @@
 			<element column="title" type="java.lang.String"></element>
 		</bag>
 		
-		<bag name="salaries" order-by="from_date">
+		<bag name="salaries" order-by="from_date" lazy="false" fetch="join">
 			<key column="emp_no"></key>
 			<one-to-many class="unq.tpi.persistencia.performanceEj.model.Salary"/>
 		</bag>
