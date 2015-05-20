@@ -9,7 +9,7 @@ import unq.tpi.persistencia.util.SessionManager
 class DepartmentTest {
 
 	@Test
-	def testFields() throws Exception {
+	def void testFields() throws Exception {
 		SessionManager.runInSession(new Operation<Object>() {
 			override def execute() {
 				val d = new DepartmentDAO().getByName("Finance");		
