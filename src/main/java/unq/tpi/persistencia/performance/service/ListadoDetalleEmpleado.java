@@ -13,7 +13,7 @@ public class ListadoDetalleEmpleado extends AbstractListado {
 	}
 
 	@Override
-	public void doListado() throws Exception {
+	public void doListado() {
 		Employee e = new EmployeeDAO().getByCode(this.num);
 		
 		this.addColumn("Codigo").addColumn(e.getId()).newLine();

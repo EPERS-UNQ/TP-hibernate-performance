@@ -1,11 +1,12 @@
 package unq.tpi.persistencia.performance.service;
 
+import org.omg.SendingContext.RunTime;
+import unq.tpi.persistencia.performance.service.runner.Runner;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import unq.tpi.persistencia.performance.service.runner.Runner;
 
 /**
  * Clase base para la generacion de reportes.
@@ -50,10 +51,14 @@ public abstract class AbstractListado {
 	 * Las implementaciones de este metodo deberan interactuar con los metodos
 	 * addColumn y newLine para generar el reporte de forma correcta.
 	 */
-	protected abstract void doListado() throws Exception;
+	protected abstract void doListado() ;
 
-	private void openFileWriter() throws IOException {
-		this.fw = new FileWriter(this.filename);
+	private void openFileWriter() {
+		try {
+			this.fw = new FileWriter(this.filename);
+		} catch (IOException e) {
+			throw  new RuntimeException(e);
+		}
 	}
 
 	private void closeFileWriter() {

@@ -1,11 +1,10 @@
 package unq.tpi.persistencia.performance.dao;
 
+import org.hibernate.Session;
+import unq.tpi.persistencia.performance.service.runner.Runner;
+
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.Session;
-
-import unq.tpi.persistencia.performance.service.runner.Runner;
 
 public class BaseDAO<T> {
 	

@@ -1,7 +1,6 @@
 package unq.tpi.persistencia.performance.dao;
 
 import org.hibernate.Session;
-
 import unq.tpi.persistencia.performance.model.Department;
 import unq.tpi.persistencia.performance.service.runner.Runner;
 

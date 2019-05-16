@@ -1,32 +1,14 @@
 package unq.tpi.persistencia.performance.model;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
 import org.hibernate.annotations.WhereJoinTable;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="employees")
@@ -50,23 +32,23 @@ public class Employee {
 	@Column(columnDefinition="enum('M','F')")
 	private Gender gender;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="dept_emp",
 			joinColumns = @JoinColumn(name = "emp_no"),
 			inverseJoinColumns = @JoinColumn(name = "dept_no"))
 	@WhereJoinTable(clause = "to_date = '9999-01-01'")
 	private Set<Department> departments;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="dept_emp",
 			joinColumns = @JoinColumn(name = "emp_no"),
 			inverseJoinColumns = @JoinColumn(name = "dept_no"))
 	@WhereJoinTable(clause = "to_date != '9999-01-01'")
 	@OrderColumn(name="from_date", columnDefinition="date", insertable=false, updatable=false)
-	private List<Department> historicDepartments;
-	
-	@ElementCollection(fetch=FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+	private Set<Department> historicDepartments;
+
+	@ElementCollection
+	@Fetch(FetchMode.SELECT)
     @CollectionTable(
         name="titles",
         joinColumns=@JoinColumn(name="emp_no")
@@ -83,9 +65,9 @@ public class Employee {
 	@Column(name="title")
     @Where(clause = "to_date != '9999-01-01'")
 	private List<String> historicTitles;
-    
-    @OneToMany(fetch=FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
+
+    @OneToMany(fetch=FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @JoinColumn(name="emp_no")
     @OrderBy(value = "from_date")
 	private List<Salary> salaries;
@@ -140,7 +122,7 @@ public class Employee {
 		return this.gender;
 	}
 
-	public List<Department> getHistoricDepartments() {
+	public Set<Department> getHistoricDepartments() {
 		return this.historicDepartments;
 	}
 

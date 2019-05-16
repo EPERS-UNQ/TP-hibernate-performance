@@ -1,9 +1,9 @@
 package unq.tpi.persistencia.performance.service;
 
-import java.util.List;
-
 import unq.tpi.persistencia.performance.dao.DepartmentDAO;
 import unq.tpi.persistencia.performance.model.Department;
+
+import java.util.List;
 
 public class ListadoDeptos extends AbstractListado {
 
@@ -12,7 +12,7 @@ public class ListadoDeptos extends AbstractListado {
 	}
 
 	@Override
-	public void doListado() throws Exception {
+	public void doListado()  {
 		this.addColumn("Codigo").addColumn("Nombre").addColumn("Manager").newLine();
 
 		List<Department> deptos = new DepartmentDAO().getAll();

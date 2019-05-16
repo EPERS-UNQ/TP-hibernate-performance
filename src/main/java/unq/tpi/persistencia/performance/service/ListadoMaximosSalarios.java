@@ -1,9 +1,9 @@
 package unq.tpi.persistencia.performance.service;
 
-import java.util.List;
-
 import unq.tpi.persistencia.performance.dao.EmployeeDAO;
 import unq.tpi.persistencia.performance.model.Employee;
+
+import java.util.List;
 
 public class ListadoMaximosSalarios extends AbstractListado {
 
@@ -12,21 +12,15 @@ public class ListadoMaximosSalarios extends AbstractListado {
 	}
 
 	@Override
-	public void doListado() throws Exception {
-		// Trae todos los empleados y los ordena descendientemente por sueldo
-		List<Employee> empleados = new EmployeeDAO().getAll();
-		empleados.sort((e1, e2) -> {
-			return (int) (e2.getSalary() - e1.getSalary());
-		});
+	public void doListado() {
+		List<Employee> empleados = new EmployeeDAO().getAllEmployeesOrdered();
 
-		// Imprime el sueldo de los 10 primeros empleados en la coleccion
 		this.addColumn("Nombre").addColumn("Sueldo").newLine();
-		for (int i = 0; i <= 9; i++) {
-			Employee empleado = empleados.get(i);
-			this.addColumn(empleado.getFullName())
-				.addColumn(empleado.getSalary())
-				.newLine();
-		}
+		empleados.forEach(employee ->
+			this.addColumn(employee.getFullName())
+				.addColumn(employee.getSalary())
+				.newLine()
+		);
 	}
 	
 }
