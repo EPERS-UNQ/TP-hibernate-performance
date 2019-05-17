@@ -17,7 +17,7 @@ public class SalaryDAO extends BaseDAO<Salary> {
 
         Session session = Runner.getCurrentSession();
         String hql = "select s from Salary s join fetch s.employee e join fetch s.employee.titles t left join s.employee.departments as d where d.code = :code and s.to = '9999-01-01'";
-        return session.createQuery ( hql, Salary.class).setParameter("code", code).getResultList();
+        return session.createQuery ( hql, Salary.class).setParameter("code", code).setReadOnly(true).getResultList();
 
     }
 }

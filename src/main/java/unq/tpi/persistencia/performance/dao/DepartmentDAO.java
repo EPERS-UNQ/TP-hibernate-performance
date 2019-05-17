@@ -20,6 +20,7 @@ public class DepartmentDAO extends BaseDAO<Department> {
 		String hql = "from Department where name = :name";
 		return session.createQuery(hql, Department.class)
 				.setParameter("name", name)
+				.setReadOnly(true)
 				.getSingleResult();
 	}
 

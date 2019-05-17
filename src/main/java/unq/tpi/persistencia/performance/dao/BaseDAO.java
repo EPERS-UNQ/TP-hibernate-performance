@@ -23,7 +23,7 @@ public class BaseDAO<T> {
 		Session session = Runner.getCurrentSession();
 		
 		String hql = "from " + this.persistendEntityName;
-		return session.createQuery(hql, this.persistedEntity).getResultList();
+		return session.createQuery(hql, this.persistedEntity).setReadOnly(true).getResultList();
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package unq.tpi.persistencia.performance.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;

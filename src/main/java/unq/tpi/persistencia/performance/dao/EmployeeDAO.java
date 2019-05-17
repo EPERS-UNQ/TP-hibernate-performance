@@ -23,6 +23,7 @@ public class EmployeeDAO extends BaseDAO<Employee> {
 		return session.createQuery(hql, Employee.class)
 				.setParameter("name", name)
 				.setParameter("lastName", lastName)
+				.setReadOnly(true)
 				.getSingleResult();
 	}
 
@@ -30,6 +31,7 @@ public class EmployeeDAO extends BaseDAO<Employee> {
 		Session session = Runner.getCurrentSession();
 		String hql = "select s.employee from Salary as s where s.to = '9999-01-01' order by s.amount DESC";
 		return session.createQuery ( hql, Employee.class)
+				.setReadOnly(true)
 				.setMaxResults(10).getResultList();
 
 	}
