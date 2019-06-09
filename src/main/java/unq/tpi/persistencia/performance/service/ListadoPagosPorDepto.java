@@ -19,7 +19,7 @@ public class ListadoPagosPorDepto extends AbstractListado {
 		List<Salary> salaries = new SalaryDAO().getDepartmentSalaries(this.id);
 
 		this.newLine();
-		this.addColumn("Total").addColumn(salaries.stream().mapToDouble(Salary::getAmount).sum()).newLine();
+		this.addColumn("Total").addColumn((long)salaries.stream().mapToDouble(Salary::getAmount).sum()).newLine();
 		this.newLine();
 
 		this.addColumn("Nombre").addColumn("Titulo").addColumn("Monto").newLine();
